@@ -1,0 +1,18 @@
+<template>
+  <div id="app">
+    <img src="./assets/logo.png">
+    <router-view></router-view>
+  </div>
+</template>
+
+<script>
+import '@/less/base.less';
+import '@/components/frame';
+
+export default {
+  name: 'app'
+}
+</script>
+
+<style>
+</style>

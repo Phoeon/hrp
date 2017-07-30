@@ -1,0 +1,57 @@
+<template>
+	<a :class='cla' @click="notifyAction">
+		<i :class='["fa","fa-"+icon]'></i>
+		<span>{{text}}</span>
+	</a>
+</template>
+<script>
+	export default{
+		props : {
+			type : {
+				default : "func" //link
+			},
+			text : {
+				default : "格式导出"
+			},
+			icon : {
+				default : "download"
+			},
+			action : {
+				default : "default-action"
+			},
+			disabled : {
+				default : false
+			}
+		},
+		computed : {
+			cla(){
+				var c = {
+					'ph-btn' : true,
+					'ph-btn-disabled' : this.disabled
+				}
+				c['ph-btn'+this.type] = true;
+				return c;
+			}
+		},
+		methods : {
+			notifyAction(){
+				if(!this.disabled)
+				this.$emit("btnAction",this.action);
+			}
+		}
+	}
+</script>
+<style lang="less" scoped="">
+	@import '../../less/macro';
+	.ph-btn{
+		.cur(pointer);
+		&:hover{
+			.bgc(#f3f3f3);
+		}
+		&.ph-btn-disabled{
+			.cur(not-allowed);
+			.opa(0.7);
+			.bgc(#f3f3f3);
+		}
+	}
+</style>
