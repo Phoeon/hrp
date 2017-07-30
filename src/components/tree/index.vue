@@ -1,10 +1,12 @@
 <template>
 	<li class="ph-tree-item"  :key="node.id">
-		<div :class='{
+		<div
+			v-if="isFolder" @click="toggle"
+		 	:class='{
 				"ph-item-link":true,
 				active : active,
 				open : open
-			}' @click="toggle">
+			}'>
 			<i :class='node.icon'></i>
 			<label>{{node.text}}</label>
 			<i v-if="isFolder" :class='{
@@ -14,6 +16,23 @@
 				"fa-angle-right":!open
 				}'></i>
 		</div>
+		<router-link
+			tag="div"
+			v-else :to="{path:action}"
+		 	:class='{
+				"ph-item-link":true,
+				active : active,
+				open : open
+			}'>
+			<i :class='node.icon'></i>
+			<label>{{node.text}}</label>
+			<i v-if="isFolder" :class='{
+				"ph-fa-angle":true,
+				fa:true,
+				"fa-angle-down":open,
+				"fa-angle-right":!open
+				}'></i>
+		</router-link>
 		<ul 
 			:style='{
 				height:height
@@ -61,6 +80,9 @@
 			},
 			height(){
 				return (this.node.open?42*(this.node.children||[]).length:0)+"px";
+			},
+			action(){
+				return (this.node.action||"com").split('com')[1]
 			}
 		},
 		methods : {

@@ -10,6 +10,8 @@ const FormCmp =   (resolve)=>require(['@/view/tab/form'],resolve);
 const ActionBar = (resolve)=>require(['@/view/tab/action-bar'],resolve);
 const Login =     (resolve)=>require(['@/view/auth/login'],resolve);
 const NotFound =  (resolve)=>require(['@/view/not-found'],resolve);
+const Authority = (resolve)=>require(['@/view/auth-mng'],resolve);
+const Reservation = (resolve)=>require(['@/view/appoint-mng'],resolve);
 
 Vue.use(Router);
 
@@ -37,8 +39,13 @@ const asyncRoutes = [
       },{
         path: '/dashboard',
         component: Dashboard
-      },
-      {
+      },{
+        path : '/saas/AuthUserList',
+        component : Authority
+      },{
+        path : '/saas/ReservationList',
+        component : Reservation
+      },{
         path: '/tab',
         component: Tab,
         children : [{
