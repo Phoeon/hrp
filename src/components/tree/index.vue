@@ -1,5 +1,8 @@
 <template>
-	<li class="ph-tree-item"  :key="idx" @mouseenter="toggleHover(true)" @mouseleave="toggleHover(false)">
+	<li class="ph-tree-item"  
+	:key="idx" 
+	@mouseenter="toggleHover(true)" 
+	@mouseleave="toggleHover(false)">
 		<div
 			v-if="isFolder" 
 			@click="toggle"
@@ -50,7 +53,24 @@
 	import Tree from '@/components/tree';
 	export default {
 		name : "treeItem",
-		props : ['node','idx'],
+		props : {
+			node : {
+				default : {}
+			},
+			idx : {
+				default : 0
+			},
+			overflow : {
+				default : false
+			},
+			collapse : {
+				default : false
+			}
+		},
+		data(){
+			return {
+			}
+		},
 		mounted(){
 			let subTree = this.$el.querySelector(".ph-sub-tree");
 			if(subTree){
@@ -67,10 +87,6 @@
 				});
 			}
 		},
-		data(){
-			return {
-			}
-		},
 		computed : {
 			isFolder(){
 				return this.node.children&&this.node.children.length
@@ -82,7 +98,7 @@
 				return this.node.open;
 			},
 			top(){
-				return this.node.top||"42px";
+				return (this.overflow?(-this.isFolder*42):42) + "px";
 			},
 			height(){
 				return (this.node.open?42*(this.node.children||[]).length:0)+"px";
@@ -100,7 +116,15 @@
 				}
 			},
 			toggleHover(flag){
-				// this.node.open=flag;
+				if(this.collapse){
+					let h=parseInt(this.height);
+					let ts = +this.isFolder*42;
+					this.node.open=flag;
+					this.$emit("notifySwiperUpdate",{
+						idx : this.idx,
+						translate : parseInt(h?ts:-ts)
+					})
+				}
 			}
 		}
 	}

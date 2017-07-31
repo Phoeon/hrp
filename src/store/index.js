@@ -5,7 +5,8 @@ Vue.use(Vuex);
 console.log(modules)
 const FrameConst = {
 	M_LOADING_TOGGLE : 'M_LOADING_TOGGLE',
-	M_LINEEAR_LOADING: 'M_LINEEAR_LOADING'
+	M_LINEEAR_LOADING: 'M_LINEEAR_LOADING',
+	M_MENU_COLLAPSE: 'M_MENU_COLLAPSE'
 }
 export default new Vuex.Store({
 	modules,
@@ -18,6 +19,9 @@ export default new Vuex.Store({
 		}
 	},
 	mutations : {
+		[FrameConst.M_MENU_COLLAPSE]  : (state) =>{
+			state.menuCollapse = !state.menuCollapse;
+		},
 		[FrameConst.M_LOADING_TOGGLE] : (state,{show})=>{
 			state.loadingShow = show;
 		},
@@ -26,6 +30,9 @@ export default new Vuex.Store({
 		}
 	},
 	actions : {
+		fMenuCollapse({commit}){
+			commit(FrameConst.M_MENU_COLLAPSE);
+		},
 		fLoadToggle({commit},payload){
 			console.log(payload)
 			commit(FrameConst.M_LOADING_TOGGLE,payload);

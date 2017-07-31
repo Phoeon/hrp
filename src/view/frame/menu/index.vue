@@ -7,10 +7,12 @@
 				@treeNodeToggle="onTreeNodeToggle"
 				:node="item"
 				:idx="k"
+				:overflow="overflow"
+				:collapse="menuCollapse"
 				 v-for="(item,k) in data.children"></TreeNode>
 			</ul>
 		</div>
-		<div class="swiper-scrollbar ph-menu-sb"></div>
+		<!-- <div class="swiper-scrollbar ph-menu-sb"></div> -->
 	</div>
 </template>
 <script>
@@ -28,27 +30,34 @@
 		},
 		data(){
 			return {
+				overflow : false,
 				data : {
 					open : true,
 					children : menuData
 				}
 			}
 		},
+		updated(){
+			console.log("update");
+			setTimeout(i=>{
+				let sp = this.sp;
+				sp&&sp.update(true);
+			},100);
+		},
 		mounted(){
-			window.sp=this.sp=new Swiper('.ph-menu-sp-c', {
-				scrollbar : '.ph-menu-sb',
+			window.asp=this.sp=new Swiper('.ph-menu-sp-c', {
+				// scrollbar : '.ph-menu-sb',
 				direction: 'vertical',
                 slidesPerView: 'auto',
                 mousewheelControl: true,
                 freeMode: true,
                 roundLengths : true,
-                scrollbarHide: true,
+                scrollbarHide: false,
                 scrollbarDraggable : true
             });
 		},
 		methods : {
 			onTreeNodeToggle(idx){
-				console.log(idx)
 				this.data.children = this.data.children.map((n,i)=>{
 					n.open=i==idx?(!n.open):false;
 					return n;
@@ -56,19 +65,31 @@
 			},
 			onNotifySwiperUpdate(payload){
 				//计算左边菜单的位移
-				if(this.menuCollapse)return;
-				this.sp&&this.sp.update(true);
-				if(payload.translate<0)return;
+				
+
 				let sp = this.sp;
+				
+				sp&&sp.update(true);
+
+				if(payload.translate<0)return;
+
 				let translate = sp.translate - payload.translate;
 				let hSpan = (payload.idx+1)*42+payload.translate+sp.translate;
-				hSpan = sp.container.height()-hSpan;
-				if(hSpan>0)return;
 
-				setTimeout(i=>{
-					sp.setWrapperTransition(300);
-					sp.setWrapperTranslate(sp.translate+hSpan);
-				},30);
+				hSpan = sp.container.height()-hSpan;
+				if(hSpan>0){
+					this.overflow = false;
+					return;
+				}
+				//左边收起来才执行
+				if(this.menuCollapse){
+					this.overflow = true;
+				}else{
+					setTimeout(i=>{
+						sp.setWrapperTransition(300);
+						sp.setWrapperTranslate(sp.translate+hSpan);
+					},30);
+				}
 			}
 		},
 		components : {TreeNode}
@@ -84,6 +105,9 @@
 		.b(0);
 		.ts(top 0.5s ease-in-out);
 		.of(visible);
+		.swiper-wrapper{
+			.h(auto);
+		}
 		.ph-tree{
 			.h(auto);
 		}
@@ -92,6 +116,7 @@
 			.ph-tree{
 				&.ph-sub-tree{
 					.pa;
+					.ts(opacity 0s ease-in-out);
 				}	
 				.ph-tree-item{
 					.ph-item-link{
@@ -133,7 +158,7 @@
 			.oh;
 			.h(0px);
 			.db;
-			.ts(height .2s ease-in-out);
+			.ts(height .3s ease-in-out);
 			.ph-item-link{
 				.ti(40px);
 			}
