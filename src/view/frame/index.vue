@@ -1,6 +1,6 @@
 <template>
 	<section class="ph-frame ph-bfc" id="ph-frame">
-		<LinearLoading v-if="linkarLoading"></LinearLoading>
+		<LinearLoading :linkarLoading="linkarLoading"></LinearLoading>
 		<div class="ph-left ph-frame-left">
 			<Logo></Logo>
 			<Menus></Menus>
@@ -18,25 +18,14 @@
 	import Logo from './logo';
 	import BDInfoBar from './bd-info-bar';
 	import Menus from './menu';
+	import {mapState} from 'vuex';
 
 	export default {
 		data(){
 			return {
-				loadingShow : false,
-				linkarLoading : true
 			}
 		},
-		// 临时方案
-		mounted(){
-			document.addEventListener("click",(e)=>{
-				if(e.target.id=="loadingShow"){
-					this.loadingShow = true;
-					setTimeout(()=>{
-						this.loadingShow = false;
-					},3000);
-				}
-			})
-		},
+		computed : mapState(["loadingShow","linkarLoading"]),
 		name : "Frame",
 		components : {Logo,BDInfoBar,Menus,Loading,LinearLoading}
 	}

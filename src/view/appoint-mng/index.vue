@@ -21,9 +21,8 @@
         <td>
             
             <a href="javascript:void(0)" class="cus_info detail-dialog">
-                <span>{{re.name|slice(0,7)}}</span>
+                <span>{{re.name}}</span>
                 <span>{{re.age}}岁</span>
-                
             </a>
         </td>
         <td>{{re.mobile}}</td>
