@@ -1,5 +1,5 @@
 <template>
-	<li class="ph-tree-item"  :key="node.id" @mouseenter="toggleHover(true)" @mouseleave="toggleHover(false)">
+	<li class="ph-tree-item"  :key="idx" @mouseenter="toggleHover(true)" @mouseleave="toggleHover(false)">
 		<div
 			v-if="isFolder" 
 			@click="toggle"
@@ -40,7 +40,9 @@
 				}'
 			:class='{"ph-sub-tree":true,"ph-tree":true,"tree-close":!open}'>
 			<tree-item 
-			:node="item" v-for="item in node.children"></tree-item>
+			:node="item" 
+			:idx="k"
+			v-for="(item,k) in node.children"></tree-item>
 		</ul>
 	</li>
 </template>
@@ -48,7 +50,7 @@
 	import Tree from '@/components/tree';
 	export default {
 		name : "treeItem",
-		props : ['node'],
+		props : ['node','idx'],
 		mounted(){
 			let subTree = this.$el.querySelector(".ph-sub-tree");
 			if(subTree){
@@ -58,7 +60,7 @@
 						let h=parseInt(this.height);
 						let ts = +this.isFolder*42;
 						this.$emit("notifySwiperUpdate",{
-							node : this.node,
+							idx : this.idx,
 							translate : parseInt(h?ts:-ts)
 						})
 					});
@@ -92,7 +94,7 @@
 		methods : {
 			toggle(){
 				if(this.isFolder){
-					this.$emit("treeNodeToggle",this.node);
+					this.$emit("treeNodeToggle",this.idx);
 				}else{
 					console.log(this.node.id)
 				}

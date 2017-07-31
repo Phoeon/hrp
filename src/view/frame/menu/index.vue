@@ -5,7 +5,9 @@
 				<TreeNode 
 				@notifySwiperUpdate="onNotifySwiperUpdate"
 				@treeNodeToggle="onTreeNodeToggle"
-				:node="item" v-for="(item,k) in data.children"></TreeNode>
+				:node="item"
+				:idx="k"
+				 v-for="(item,k) in data.children"></TreeNode>
 			</ul>
 		</div>
 		<div class="swiper-scrollbar ph-menu-sb"></div>
@@ -45,9 +47,10 @@
             });
 		},
 		methods : {
-			onTreeNodeToggle(node){
-				this.data.children = this.data.children.map(n=>{
-					n.open=n.id==node.id?(!node.open):false;
+			onTreeNodeToggle(idx){
+				console.log(idx)
+				this.data.children = this.data.children.map((n,i)=>{
+					n.open=i==idx?(!n.open):false;
 					return n;
 				})
 			},
@@ -58,7 +61,7 @@
 				if(payload.translate<0)return;
 				let sp = this.sp;
 				let translate = sp.translate - payload.translate;
-				let hSpan = (parseInt(payload.node.id.replace(/id_/,""))+1)*42+payload.translate+sp.translate;
+				let hSpan = (payload.idx+1)*42+payload.translate+sp.translate;
 				hSpan = sp.container.height()-hSpan;
 				if(hSpan>0)return;
 
