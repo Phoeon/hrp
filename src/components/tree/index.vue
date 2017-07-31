@@ -1,10 +1,10 @@
 <template>
-	<li class="ph-tree-item"  :key="node.id">
+	<li class="ph-tree-item"  :key="node.id" @mouseenter="toggleHover(true)" @mouseleave="toggleHover(false)">
 		<div
-			v-if="isFolder" @click="toggle"
+			v-if="isFolder" 
+			@click="toggle"
 		 	:class='{
 				"ph-item-link":true,
-				active : active,
 				open : open
 			}'>
 			<i :class='node.icon'></i>
@@ -33,9 +33,10 @@
 				"fa-angle-right":!open
 				}'></i>
 		</router-link>
-		<ul 
+		<ul v-if="isFolder"
 			:style='{
-				height:height
+				height:height,
+				top:top
 				}'
 			:class='{"ph-sub-tree":true,"ph-tree":true,"tree-close":!open}'>
 			<tree-item 
@@ -78,6 +79,9 @@
 			open(){
 				return this.node.open;
 			},
+			top(){
+				return this.node.top||"42px";
+			},
 			height(){
 				return (this.node.open?42*(this.node.children||[]).length:0)+"px";
 			},
@@ -92,6 +96,9 @@
 				}else{
 					console.log(this.node.id)
 				}
+			},
+			toggleHover(flag){
+				// this.node.open=flag;
 			}
 		}
 	}

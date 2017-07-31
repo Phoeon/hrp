@@ -24,7 +24,6 @@
 		.ph-tab-list{
 			.pr;
 			.oh;
-			.zi(1);
 			li{
 				.fl;
 				.h(32px);

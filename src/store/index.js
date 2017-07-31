@@ -11,6 +11,7 @@ export default new Vuex.Store({
 	modules,
 	state : {
 		loadingShow : false,
+		menuCollapse : false,
 		linkarLoading : {
 			left : "-100%",
 			opacity : 1

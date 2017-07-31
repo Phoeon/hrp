@@ -1,5 +1,5 @@
 <template>
-	<div class="swiper-container ph-menu-sp-c">
+	<div :class="['swiper-container', 'ph-menu-sp-c',toggle]">
 		<div class="swiper-wrapper">
 			<ul :class='{"swiper-slide":true,"ph-tree":true,"tree-open":true,"tree-close":!true}'>
 				<TreeNode 
@@ -18,6 +18,12 @@
 	import menuData from './data.js';
 	export default {
 		name : "Menu",
+		props : ['menuCollapse'],
+		computed : {
+			toggle(){
+				return this.menuCollapse?"ph-collapse":"";
+			}
+		},
 		data(){
 			return {
 				data : {
@@ -47,6 +53,7 @@
 			},
 			onNotifySwiperUpdate(payload){
 				//计算左边菜单的位移
+				if(this.menuCollapse)return;
 				this.sp&&this.sp.update(true);
 				if(payload.translate<0)return;
 				let sp = this.sp;
@@ -72,8 +79,47 @@
 		.t(98px);
 		.l(0);
 		.b(0);
+		.ts(top 0.5s ease-in-out);
+		.of(visible);
 		.ph-tree{
 			.h(auto);
+		}
+		&.ph-collapse{
+			.t(48px);
+			.ph-tree{
+				&.ph-sub-tree{
+					.pa;
+				}	
+				.ph-tree-item{
+					.ph-item-link{
+						.ws;
+						label,
+						.ph-fa-angle{
+							.dn;
+						}
+					}
+
+					&:hover{
+						.zi(999);
+						.bgc(#2A3846);
+						.w(214px);
+						label{
+							.ml(48px);
+						}
+						label{
+							.dib;
+						}
+
+						.ph-sub-tree{
+							.l(48px);
+							.w(166px);
+							label{
+								.ml(-38px);
+							}
+						}
+					}
+				}	
+			}
 		}
 	}
 	.ph-tree{
