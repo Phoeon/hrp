@@ -34,7 +34,6 @@
 				.ta(center);
 				.miw(50px);
 				.bd(1px solid #E6E6E6);
-				.bb(1px solid transparent);
 				.bgc(#f2f2f2);
 				.brs(3px 3px 0 0);
 				.cur(pointer);
@@ -43,6 +42,7 @@
 				}
 				&.active{
 					.bgc(#FFFFFF);
+					.bb(1px solid transparent);
 				}
 			}
 		}

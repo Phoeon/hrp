@@ -12,7 +12,9 @@ const Login =     (resolve)=>require(['@/view/auth/login'],resolve);
 const NotFound =  (resolve)=>require(['@/view/not-found'],resolve);
 const Authority = (resolve)=>require(['@/view/auth-mng'],resolve);
 const Reservation = (resolve)=>require(['@/view/appoint-mng'],resolve);
-
+const SimpleTable = (resolve)=>require(['@/view/table'],resolve);
+const ActionTable = (resolve)=>require(['@/view/table/theader'],resolve);
+const Loading = (resolve)=>require(['@/view/loading'],resolve);
 Vue.use(Router);
 
 const syncRoutes = [{
@@ -45,6 +47,15 @@ const asyncRoutes = [
       },{
         path : '/saas/ReservationList',
         component : Reservation
+      },{
+        path : '/table',
+        component : SimpleTable
+      },{
+        path : '/table-action',
+        component : ActionTable
+      },{
+        path : '/loading',
+        component : Loading
       },{
         path: '/tab',
         component: Tab,

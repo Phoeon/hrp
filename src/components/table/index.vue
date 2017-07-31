@@ -22,6 +22,7 @@
 			.fs(12px);
 			.fc(#333);
 			.ls(0);
+			.bd(1px solid #E7E7E7);
 			th,td{
 				.pd(9px 0);
 			}

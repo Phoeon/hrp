@@ -1,5 +1,6 @@
 <template>
 	<section class="ph-frame ph-bfc" id="ph-frame">
+		<LinearLoading v-if="linkarLoading"></LinearLoading>
 		<div class="ph-left ph-frame-left">
 			<Logo></Logo>
 			<Menus></Menus>
@@ -8,11 +9,12 @@
 			<BDInfoBar></BDInfoBar>
 			<router-view></router-view>
 		</div>
-	<Loading :show="loadingShow"></Loading>
+		<Loading :show="loadingShow"></Loading>
 	</section>
 </template>
 <script>
 	import Loading from '@/components/loading';
+	import LinearLoading from '@/components/loading/linear-loading';
 	import Logo from './logo';
 	import BDInfoBar from './bd-info-bar';
 	import Menus from './menu';
@@ -20,11 +22,23 @@
 	export default {
 		data(){
 			return {
-				loadingShow : false
+				loadingShow : false,
+				linkarLoading : true
 			}
 		},
+		// 临时方案
+		mounted(){
+			document.addEventListener("click",(e)=>{
+				if(e.target.id=="loadingShow"){
+					this.loadingShow = true;
+					setTimeout(()=>{
+						this.loadingShow = false;
+					},3000);
+				}
+			})
+		},
 		name : "Frame",
-		components : {Logo,BDInfoBar,Menus,Loading}
+		components : {Logo,BDInfoBar,Menus,Loading,LinearLoading}
 	}
 </script>
 <style lang="less">
