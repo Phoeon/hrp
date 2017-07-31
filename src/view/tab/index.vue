@@ -1,22 +1,24 @@
 <template>
 	<Page>
 		<Tab>
-			<router-link tag="li" to="table" active-class="active">表格</router-link>
-			<router-link tag="li" to="form" active-class="active">表格＋表头</router-link>
-			<router-link tag="li" to="action-bar" active-class="active">表头＋标尾</router-link>
+			<router-link tag="li" 
+			:to="item.action" active-class="active"
+			v-for="item in tabs"
+			>{{item.text}}</router-link>
 		</Tab>
 	</Page>
 </template>
 <script>
 	import Page from '@/components/business-page';
 	import Tab from '@/components/tab/index.js';
+	import {mapState} from 'vuex';
+
 	export default {
 		name : "tab",
-		data(){
-			return {
-			}
-		},
-		components : {Page,Tab}
+		computed : mapState({
+			tabs : (state)=>state.tab.tabs
+		}),
+		components :{Page,Tab}
 	}
 </script>
 <style lang="less" scoped>
