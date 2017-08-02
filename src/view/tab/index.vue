@@ -1,10 +1,6 @@
 <template>
 	<Page>
-		<Tab>
-			<router-link tag="li" to="table" active-class="active">表格</router-link>
-			<router-link tag="li" to="form" active-class="active">表格＋表头</router-link>
-			<router-link tag="li" to="action-bar" active-class="active">表头＋标尾</router-link>
-		</Tab>
+		<Tab :tabs="tabs"></Tab>
 	</Page>
 </template>
 <script>
@@ -14,6 +10,17 @@
 		name : "tab",
 		data(){
 			return {
+				tabs : [{
+					to : "table",
+					text :"表格",
+					close : false
+				},{
+					to : "form",
+					text :"表单"
+				},{
+					to : "action-bar",
+					text :"随便"
+				}]
 			}
 		},
 		components : {Page,Tab}
