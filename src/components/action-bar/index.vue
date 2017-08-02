@@ -28,6 +28,7 @@
 			.pl(15px);
 			.ph-btn{
 				.mr(20px);
+				.fs(14px);
 			}
 		}
 		.ph-right{
@@ -35,6 +36,7 @@
 			.ta(right);
 			.ph-btn{
 				.ml(20px);
+				.fs(14px);
 			}
 		}
 		&.ph-bar-bottom{

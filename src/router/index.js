@@ -1,15 +1,23 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-const Frame =     (resolve)=>require(['@/components/frame'],resolve);
+const Frame =     (resolve)=>require(['@/view/frame'],resolve);
 const Dashboard = (resolve)=>require(['@/view/dashboard'],resolve);
-const Hello =     (resolve)=>require(['@/view/hello'],resolve);
+
 const Tab =       (resolve)=>require(['@/view/tab'],resolve);
 const TableCmp =  (resolve)=>require(['@/view/tab/table'],resolve);
 const FormCmp =   (resolve)=>require(['@/view/tab/form'],resolve);
 const ActionBar = (resolve)=>require(['@/view/tab/action-bar'],resolve);
+
 const Login =     (resolve)=>require(['@/view/auth/login'],resolve);
 const NotFound =  (resolve)=>require(['@/view/not-found'],resolve);
+
+const Authority = (resolve)=>require(['@/view/auth-mng'],resolve);
+const Reservation = (resolve)=>require(['@/view/appoint-mng'],resolve);
+
+const SimpleTable = (resolve)=>require(['@/view/table'],resolve);
+const ActionTable = (resolve)=>require(['@/view/table/theader'],resolve);
+const Loading = (resolve)=>require(['@/view/loading'],resolve);
 
 Vue.use(Router);
 
@@ -37,8 +45,22 @@ const asyncRoutes = [
       },{
         path: '/dashboard',
         component: Dashboard
-      },
-      {
+      },{
+        path : '/saas/AuthUserList',
+        component : Authority
+      },{
+        path : '/saas/ReservationList',
+        component : Reservation
+      },{
+        path : '/table',
+        component : SimpleTable
+      },{
+        path : '/table-action',
+        component : ActionTable
+      },{
+        path : '/loading',
+        component : Loading
+      },{
         path: '/tab',
         component: Tab,
         children : [{
@@ -82,7 +104,7 @@ router.beforeEach((to,from,next)=>{
         next({
           path:'/tab',
           query:{
-            // asdf:"/hello"
+       
           }
         })
     }else{

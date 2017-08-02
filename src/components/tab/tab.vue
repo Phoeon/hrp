@@ -45,7 +45,6 @@
 		.ph-tab-list{
 			.pr;
 			.oh;
-			.zi(1);
 			li{
 				.fl;
 				.h(32px);
@@ -53,7 +52,6 @@
 				.ml(-1px);
 				.pr;
 				.bd(1px solid #E6E6E6);
-				.bb(1px solid transparent);
 				.bgc(#f2f2f2);
 				.brs(3px 3px 0 0);
 				.cur(pointer);
@@ -77,6 +75,7 @@
 				&:first-child{
 					.ml(0px);
 				}
+<<<<<<< HEAD
 				.fa-close{
 					.pa;
 					.t(0);
@@ -96,6 +95,11 @@
 					    	.fc(#000);
 					    }
 					}
+=======
+				&.active{
+					.bgc(#FFFFFF);
+					.bb(1px solid transparent);
+>>>>>>> a3fb7bfbfa9b0cc3e61e1eb244e2fe0ec711e1a5
 				}
 			}
 		}

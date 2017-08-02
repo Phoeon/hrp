@@ -1,10 +1,15 @@
 <template>
-	<li class="ph-tree-item"  :key="node.id">
-		<div :class='{
+	<li class="ph-tree-item"  
+	:key="idx" 
+	@mouseenter="toggleHover(true)" 
+	@mouseleave="toggleHover(false)">
+		<div
+			v-if="isFolder" 
+			@click="toggle"
+		 	:class='{
 				"ph-item-link":true,
-				active : active,
 				open : open
-			}' @click="toggle">
+			}'>
 			<i :class='node.icon'></i>
 			<label>{{node.text}}</label>
 			<i v-if="isFolder" :class='{
@@ -14,13 +19,33 @@
 				"fa-angle-right":!open
 				}'></i>
 		</div>
-		<ul 
+		<router-link
+			tag="div"
+			v-else :to="{path:action}"
+		 	:class='{
+				"ph-item-link":true,
+				active : active,
+				open : open
+			}'>
+			<i :class='node.icon'></i>
+			<label>{{node.text}}</label>
+			<i v-if="isFolder" :class='{
+				"ph-fa-angle":true,
+				fa:true,
+				"fa-angle-down":open,
+				"fa-angle-right":!open
+				}'></i>
+		</router-link>
+		<ul v-if="isFolder"
 			:style='{
-				height:height
+				height:height,
+				top:top
 				}'
 			:class='{"ph-sub-tree":true,"ph-tree":true,"tree-close":!open}'>
 			<tree-item 
-			:node="item" v-for="item in node.children"></tree-item>
+			:node="item" 
+			:idx="k"
+			v-for="(item,k) in node.children"></tree-item>
 		</ul>
 	</li>
 </template>
@@ -28,7 +53,24 @@
 	import Tree from '@/components/tree';
 	export default {
 		name : "treeItem",
-		props : ['node'],
+		props : {
+			node : {
+				default : {}
+			},
+			idx : {
+				default : 0
+			},
+			overflow : {
+				default : false
+			},
+			collapse : {
+				default : false
+			}
+		},
+		data(){
+			return {
+			}
+		},
 		mounted(){
 			let subTree = this.$el.querySelector(".ph-sub-tree");
 			if(subTree){
@@ -38,15 +80,11 @@
 						let h=parseInt(this.height);
 						let ts = +this.isFolder*42;
 						this.$emit("notifySwiperUpdate",{
-							node : this.node,
+							idx : this.idx,
 							translate : parseInt(h?ts:-ts)
 						})
 					});
 				});
-			}
-		},
-		data(){
-			return {
 			}
 		},
 		computed : {
@@ -59,16 +97,33 @@
 			open(){
 				return this.node.open;
 			},
+			top(){
+				return (this.overflow?(-this.isFolder*42):42) + "px";
+			},
 			height(){
 				return (this.node.open?42*(this.node.children||[]).length:0)+"px";
+			},
+			action(){
+				return (this.node.action||"com").split('com')[1]
 			}
 		},
 		methods : {
 			toggle(){
 				if(this.isFolder){
-					this.$emit("treeNodeToggle",this.node);
+					this.$emit("treeNodeToggle",this.idx);
 				}else{
 					console.log(this.node.id)
+				}
+			},
+			toggleHover(flag){
+				if(this.collapse){
+					let h=parseInt(this.height);
+					let ts = +this.isFolder*42;
+					this.node.open=flag;
+					this.$emit("notifySwiperUpdate",{
+						idx : this.idx,
+						translate : parseInt(h?ts:-ts)
+					})
 				}
 			}
 		}
