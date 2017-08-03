@@ -75,7 +75,6 @@
 				&:first-child{
 					.ml(0px);
 				}
-<<<<<<< HEAD
 				.fa-close{
 					.pa;
 					.t(0);
@@ -95,13 +94,8 @@
 					    	.fc(#000);
 					    }
 					}
-=======
-				&.active{
-					.bgc(#FFFFFF);
-					.bb(1px solid transparent);
->>>>>>> a3fb7bfbfa9b0cc3e61e1eb244e2fe0ec711e1a5
 				}
-			}
 		}
 	}
+}
 </style>

@@ -13,7 +13,7 @@
 				default : ""
 			},
 			close : {
-				default : true
+				default : false
 			},
 			idx : {
 				default:-1
