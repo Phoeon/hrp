@@ -22,10 +22,15 @@
 	import menuData from './data.js';
 	export default {
 		name : "Menu",
-		props : ['menuCollapse'],
+		props : ['menuCollapse',"random"],
 		computed : {
 			toggle(){
 				return this.menuCollapse?"ph-collapse":"";
+			}
+		},
+		watch : {
+			random(){
+				this.updateSwiper();
 			}
 		},
 		data(){
@@ -38,14 +43,10 @@
 			}
 		},
 		updated(){
-			console.log("update");
-			setTimeout(i=>{
-				let sp = this.sp;
-				sp&&sp.update(true);
-			},100);
+			this.updateSwiper();
 		},
 		mounted(){
-			window.asp=this.sp=new Swiper('.ph-menu-sp-c', {
+			this.sp=new Swiper('.ph-menu-sp-c', {
 				// scrollbar : '.ph-menu-sb',
 				direction: 'vertical',
                 slidesPerView: 'auto',
@@ -62,6 +63,12 @@
 					n.open=i==idx?(!n.open):false;
 					return n;
 				})
+			},
+			updateSwiper(){
+				setTimeout(i=>{
+					let sp = this.sp;
+					sp&&sp.update(true);
+				},100);
 			},
 			onNotifySwiperUpdate(payload){
 				//计算左边菜单的位移
@@ -133,8 +140,6 @@
 						.w(214px);
 						label{
 							.ml(48px);
-						}
-						label{
 							.dib;
 						}
 
@@ -173,7 +178,7 @@
 				.fc(#A7B1C2);
 				.fs(14px);
 				.td(none);
-
+				white-space:nowrap;
 				.fa{
 					.ml(16px);
 					.mr(6px);
@@ -184,7 +189,8 @@
 					.b(0);
 					.lh(42px);
 					.mg(auto);
-					.r(15px);
+					//.r(15px);
+					.l(146px);
 				}
 				&.open,
 				&.active,

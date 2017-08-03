@@ -13,7 +13,6 @@
 			login(){
 				localStorage.setItem("permission",true);
 				let ru = this.$route.query.returnUrl||"/dashboard";
-				console.log(ru);
 				if(ru){
 					this.$router.push({
 						path : ru

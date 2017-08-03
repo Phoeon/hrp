@@ -3,7 +3,7 @@
 		<LinearLoading :linkarLoading="linkarLoading"></LinearLoading>
 		<div :class='["ph-left","ph-frame-left",menuState]'>
 			<Logo :menuCollapse="menuCollapse"></Logo>
-			<Menus :menuCollapse="menuCollapse"></Menus>
+			<Menus :menuCollapse="menuCollapse" :random="random"></Menus>
 		</div>
 		<div class="ph-right ph-frame-right">
 			<BDInfoBar></BDInfoBar>
@@ -23,11 +23,27 @@
 	export default {
 		data(){
 			return {
+				random : -1
+			}
+		},
+		mounted(){
+			let leftMenu = this.$el.querySelector(".ph-frame-left");
+			if(leftMenu){
+				["t","webkitT","mozT","msT"].forEach(i=>{
+					leftMenu.addEventListener(i+"ransitionend",()=>{
+						this.random = Math.random();
+					});
+				});
 			}
 		},
 		computed : {...mapState(["loadingShow","linkarLoading","menuCollapse"]),
 			menuState(){
 				return this.menuCollapse?"ph-collapse":"";
+			}
+		},
+		methods : {
+			menuTransitionEnd(){
+				console.log(Math.random(),22)
 			}
 		},
 		name : "Frame",
@@ -42,7 +58,10 @@
 	.ph-left{
 		.h(100%);
 		.pr;
-
+		.oh;
+		&.ph-collapse{
+			.of(visible);
+		}
 	}
 	.ph-right{
 		.h(100%);

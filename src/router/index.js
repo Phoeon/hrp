@@ -31,9 +31,6 @@ const syncRoutes = [{
     {
       path : "/404",
       component : NotFound
-    },{
-      path : "*",
-      redirect : "404"
     }];
 const asyncRoutes = [
     {
@@ -64,7 +61,7 @@ const asyncRoutes = [
         path: '/tab',
         component: Tab,
         children : [{
-          path:"/",
+          path:"",
           redirect : "table"
         },{
           path : "table",
@@ -77,6 +74,10 @@ const asyncRoutes = [
           component : ActionBar
         }]
       }]
+    }
+    ,{
+      path : "*",
+      redirect : "404"
     }
 ]
 
