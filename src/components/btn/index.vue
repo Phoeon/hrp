@@ -23,6 +23,11 @@
 				default : false
 			}
 		},
+		data(){
+			return {
+				dbclick:false
+			}
+		},
 		computed : {
 			cla(){
 				var c = {
@@ -35,8 +40,15 @@
 		},
 		methods : {
 			notifyAction(){
-				if(!this.disabled)
-				this.$emit("btnAction",this.action);
+				if(!this.disabled){
+					if(!this.dbclick){
+						this.dbclick = true;
+						setTimeout(i=>{
+							this.dbclick = false;
+						},500);
+						this.$emit("btnAction",this.action);
+					}
+				}
 			}
 		}
 	}

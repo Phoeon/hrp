@@ -162,7 +162,7 @@
 		components : {Page,Btn,ActionBar,TableCmp},
 		methods : {
 			onClick(){
-				alert(arguments[0]);
+				console.log(arguments);
 			}
 		}
 	}

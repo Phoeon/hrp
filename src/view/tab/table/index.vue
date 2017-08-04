@@ -2,7 +2,7 @@
 	<TabPanel>
 		<TableCmp>
 			<ActionBar slot="table-header">
-				<Btn text="下载"></Btn>
+				<Btn text="下载" @btnAction="onClick" action="testdbclcik"></Btn>
 				<Btn text="新增" icon="plus"></Btn>
 				<Btn text="修改" icon="edit"></Btn>
 				<Btn slot="ph-action-right"></Btn>
