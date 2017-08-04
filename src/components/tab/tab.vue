@@ -69,6 +69,7 @@
 					.db;
 					&.active{
 						.bgc(#FFFFFF);
+						.pb(1px);
 					}
 				}
 				
