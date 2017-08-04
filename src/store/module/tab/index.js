@@ -1,7 +1,3 @@
-const TabConst = {
-	M_LOADING_TOGGLE : 'M_LOADING_TOGGLE',
-	M_LINEEAR_LOADING: 'M_LINEEAR_LOADING'
-}
 
 const state = {
 				tabs : [{

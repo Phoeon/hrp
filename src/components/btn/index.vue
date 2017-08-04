@@ -5,6 +5,8 @@
 	</a>
 </template>
 <script>
+	import {mapActions} from 'vuex';
+
 	export default{
 		props : {
 			type : {
@@ -42,6 +44,16 @@
 			notifyAction(){
 				//判断按钮的状态
 				if(!this.disabled&&!this.dbclick){
+					//用于未来的统计业务
+					this.fKeyClick&&this.fKeyClick({
+						type : "click",
+						meta : {
+							text : this.text,
+							action : this.action,
+							path : this.$router.currentRoute.fullPath
+						}
+					});
+
 					this.dbclick = true;
 					//500 s 后，自动打开禁用的按钮标记
 					setTimeout(i=>{
@@ -49,7 +61,8 @@
 					},500);
 					this.$emit("btnAction",this.action);
 				}
-			}
+			},
+			...mapActions(['fKeyClick'])
 		}
 	}
 </script>

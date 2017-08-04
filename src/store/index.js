@@ -2,7 +2,6 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import modules from './module';
 Vue.use(Vuex);
-console.log(modules)
 const FrameConst = {
 	M_LOADING_TOGGLE : 'M_LOADING_TOGGLE',
 	M_LINEEAR_LOADING: 'M_LINEEAR_LOADING',
