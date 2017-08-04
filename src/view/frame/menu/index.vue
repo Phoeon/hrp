@@ -133,7 +133,7 @@
 							.dn;
 						}
 					}
-
+					
 					&:hover{
 						.zi(999);
 						.bgc(#2A3846);
@@ -147,7 +147,8 @@
 							.l(48px);
 							.w(166px);
 							label{
-								.ml(-38px);
+								.ml(-40px);
+								.l(39px);
 							}
 						}
 					}
@@ -164,8 +165,13 @@
 			.h(0px);
 			.db;
 			.ts(height .3s ease-in-out);
-			.ph-item-link{
-				.ti(40px);
+			.ph-tree-item{
+				.ph-item-link{
+					.ti(40px);
+					label{
+						.l(0);
+					}
+				}
 			}
 		}
 		.ph-tree-item{
@@ -191,6 +197,13 @@
 					.mg(auto);
 					//.r(15px);
 					.l(146px);
+				}
+				label{
+    				.t(0);
+    				.b(0);
+    				.l(39px);
+    				.mg(auto);
+    				.pa;
 				}
 				&.open,
 				&.active,
