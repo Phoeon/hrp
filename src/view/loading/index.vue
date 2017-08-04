@@ -1,6 +1,6 @@
 <template>
 	<div class="wrap">
-		<Btn @btnAction="onClick" icon="spinner" action="spinner">showloading</Btn>
+		<Btn @btnAction="onClick" icon="spinner" action="spinner" text="showloading"></Btn>
 	</div>
 </template>
 <script>

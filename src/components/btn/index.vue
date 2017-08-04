@@ -40,14 +40,14 @@
 		},
 		methods : {
 			notifyAction(){
-				if(!this.disabled){
-					if(!this.dbclick){
-						this.dbclick = true;
-						setTimeout(i=>{
-							this.dbclick = false;
-						},500);
-						this.$emit("btnAction",this.action);
-					}
+				//判断按钮的状态
+				if(!this.disabled&&!this.dbclick){
+					this.dbclick = true;
+					//500 s 后，自动打开禁用的按钮标记
+					setTimeout(i=>{
+						this.dbclick = false;
+					},500);
+					this.$emit("btnAction",this.action);
 				}
 			}
 		}
