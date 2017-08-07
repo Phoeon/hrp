@@ -5,7 +5,10 @@
 		</div>
 		<div class="ph-field-wrap ph-right">
 			<div class="ph-field">
-				<input v-model="v" :value="value" type="text" name="username" placeholder="account">
+				<input 
+					:class='{"ph-invalid-tip":!valid}'
+					v-model="mv"
+					@keyup="doValid">
 				<i class="fa fa-angle-down"></i>
 			</div>
 			<label v-if="!valid" class="ph-tip ph-invalid-tip">{{tip}}</label>
@@ -15,47 +18,33 @@
 <script>
 	export default {
 		props : {
+			name : {
+				default : ""
+			},
 			value : {
 				default : ""
 			},
 			label : {
-				default : "label"
+				default : ""
 			},
-			random : {
-				default : -1
+			tip : {
+				default : ""
 			},
-			validPipe : {
-				default : ()=>{return true}
-			}
-		},
-		watch : {
-			random(){
-				this.doValid();
-			}
-		},
-		mounted(){
-			this.$el.onkeyup = ()=>{
-				this.doValid();
+			valid : {
+				default : true
 			}
 		},
 		data(){
 			return {
-				valid : true,
-				tip : "",
-				v : ""
+				mv : this.value
 			}
 		},
 		methods : {
 			doValid(){
-				let v = this.v
-				console.log(v);
-				if(v.length){
-					this.valid = true;
-					this.tip = "";
-				}else{
-					this.valid = false;
-					this.tip = "长度非法"
-				}
+				this.$emit("onFieldChange",{
+					name : this.name,
+					value : this.mv
+				})
 			}
 		}
 	}

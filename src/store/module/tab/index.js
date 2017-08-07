@@ -1,3 +1,6 @@
+import Validator from '../../../widget/validator';
+
+const validator = new Validator({});
 
 const state = {
 				tabs : [{
@@ -10,7 +13,8 @@ const state = {
 				},{
 					to : "action-bar",
 					text :"随便"
-				}]
+				}],
+				validator
 			}
 
 export default {

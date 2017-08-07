@@ -1,7 +1,7 @@
 <template>
 	<a :class='cla' @click="notifyAction">
 		<i :class='["fa","fa-"+icon]'></i>
-		<span>{{text}}</span>
+		<span><slot>{{text}}</slot></span>
 	</a>
 </template>
 <script>
