@@ -9,7 +9,9 @@ function resolve (dir) {
 
 module.exports = {
   entry: {
-    app: './src/main.js'
+    //edited by fuyue to fix Promise required emited in console 
+    // app: './src/main.js'
+    app : ['babel-polyfill','./src/main.js']
   },
   output: {
     path: config.build.assetsRoot,
